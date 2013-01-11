@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>DataStat</title>
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+		<link rel="stylesheet" type="text/css" href="/css/docs.css" />
+		<link rel="stylesheet" type="text/css" href="/css/prettify.css" />
+		<link rel="stylesheet" type="text/css" href="/css/reset.css" />
+	</head>
+	<body data-spy="scroll" data-target=".bs-docs-sidebar">
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="brand" href="/">DataStat</a>
+					<div class="nav-collapse subnav-collapse">
+						<ul class="nav">
+							<li><a href="/">主页</a></li>
+							<li><a href="/load">数据加载</a></li>
+							<li><a href="/data">列表查询</a></li>
+							<li><a href="/statistics">分析统计</a></li>
+							<li class="active"><a href="/guide">说明</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="span3 bs-docs-sidebar">
+					<ul class="nav nav-list bs-docs-sidenav affix">
+						<li class="active"><a href="#overview"><i class="icon-chevron-right"></i>简介</a></li>
+						<li class=""><a href="#tool"><i class="icon-chevron-right"></i>工具</a></li>
+						<li class=""><a href="#author"><i class="icon-chevron-right"></i>作者</a></li>
+					</ul>
+				</div>
+				<div class="span9">
+					<section id="overview">
+						<div class="page-header"><h1>简介</h1></div>
+						<p>为了方便数据统计，这里将数据的预处理工作进行了可视化处理，将原始数据加载入计算机进行统计分析，最终的结果以图表的形式展现给用户。这是复杂数据统计分析的预处理阶段，是后续复杂算法处理其它统计问题的一个先期准备。</p>
+						<br>
+						<table class="table table-bordered table-striped table-hover">
+							<tbody>
+								<tr>
+									<td>数据加载</td>
+									<td>分析原始数据，通过批处理的方式将所有的数据载入数据库。</td>
+								</tr>
+								<tr>
+									<td>列表查询</td>
+									<td>将入库后的原始数据以列表的形式展现给用户，提供根据任务编号查询记录的功能。</td>
+								</tr>
+								<tr>
+									<td>分析统计</td>
+									<td>对加载所得的数据集进行统计处理，并绘制曲线图。</td>
+								</tr>
+							</tbody>
+						</table>
+					</section>
+					<section id="tool">
+						<div class="page-header"><h1>工具</h1></div>
+						<dl>
+							<dt><a href="http://jersey.java.net/" target="_blank">Jersey</a></dt>
+							<dd>用来在系统中提供REST服务</dd>
+						</dl>
+						<dl>
+							<dt><a href="http://freemarker.sourceforge.net/" target="_blank">FreeMarker</a></dt>
+							<dd>Java模板引擎</dd>
+						</dl>
+						<dl>
+							<dt><a href="http://twitter.github.com/bootstrap/index.html" target="_blank">Bootstrap</a></dt>
+							<dd>Twitter开源的一套CSS框架</dd>
+						</dl>
+					</section>
+					<section id="author">
+						<div class="page-header"><h1>作者</h1></div>
+						<address>
+							<strong>NLSDE, Inc.</strong><br>
+							1709 Room, Baiyan Building<br>
+							Bei Si Huan Zhong Lu Road No.238, Haidian District<br>
+							Beijing, China 100191<br>
+							<abbr title="Phone">Phone:</abbr> (+86 010) 8231-6463
+						</address>
+						<address>
+							<strong>Feng Liang</strong><br>
+							<a href="mailto:liangfeng678@gmail.com">liangfeng678@gmail.com</a>
+						</address>
+					</section>
+				</div>
+			</div>
+			<hr>
+			<footer><p>© NLSDE 2013</p></footer>
+		</div>
+		<script src="/js/jquery-1.7.1.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
+	</body>
+</html>

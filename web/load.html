@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>DataStat</title>
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+		<link rel="stylesheet" type="text/css" href="/css/docs.css" />
+		<link rel="stylesheet" type="text/css" href="/css/prettify.css" />
+		<link rel="stylesheet" type="text/css" href="/css/reset.css" />
+	</head>
+	<body data-spy="scroll" data-target=".bs-docs-sidebar">
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="brand" href="/">DataStat</a>
+					<div class="nav-collapse subnav-collapse">
+						<ul class="nav">
+							<li><a href="/">主页</a></li>
+							<li class="active"><a href="/load">数据加载</a></li>
+							<li><a href="/data">列表查询</a></li>
+							<li><a href="/statistics">分析统计</a></li>
+							<li><a href="/guide">说明</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="page-header" style="height: 35px;"><h3>加载控制</h3></div>
+			<div class="row">
+				<div class="span1">
+					<button id="loadButton" class="btn btn-info" type="button" onclick="loadStart();">&nbsp;加载&nbsp;</button>
+				</div>
+				<div class="progress progress-striped span11" style="margin-top:5px;">
+					<div id="loadProgress" class="bar" style="width:0%;"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div id="loadInfo" class="span11 offset1"></div>
+			</div>
+			<div class="page-header" style="margin-top:20px; height:35px;"><h3>数据信息</h3></div>
+			<div class="row">
+				<div id="metadata" class="span12"></div>
+			</div>
+			<hr>
+			<footer><p>© NLSDE 2013</p></footer>
+		</div>
+		<script src="/js/jquery-1.7.1.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
+		<script type = "text/javascript">
+		<!--
+			$(function() {
+				updateHandler();
+			})
+			
+			function updateHandler() {
+				function update() {
+					$.ajax({
+						url: '/load/status',
+						data: 'status',
+						success: updateStatus
+					});
+					function updateStatus(status) {
+						if (status == 'BUSY') {
+							$('#loadButton').attr('disabled', 'disabled');
+						}
+					}
+					$.ajax({
+						url: '/load/progress',
+						data: 'progress',
+						success: updateProgress
+					});
+					function updateProgress(progress) {
+						$('#loadProgress').css('width', progress+'%');
+					}
+					$('#loadInfo').load('/load/info');
+					$('#metadata').load('/load/metadata');
+				}
+				update();
+				setInterval(update, 500);
+			}
+			
+			function loadStart() {
+				$.get('/load/start');
+			}
+		-->
+		</script>
+	</body>
+</html>

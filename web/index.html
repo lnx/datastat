@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>DataStat</title>
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+		<link rel="stylesheet" type="text/css" href="/css/docs.css" />
+		<link rel="stylesheet" type="text/css" href="/css/prettify.css" />
+		<link rel="stylesheet" type="text/css" href="/css/reset.css" />
+	</head>
+	<body data-spy="scroll" data-target=".bs-docs-sidebar">
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="brand" href="/">DataStat</a>
+					<div class="nav-collapse subnav-collapse">
+						<ul class="nav">
+							<li class="active"><a href="/">主页</a></li>
+							<li><a href="/load">数据加载</a></li>
+							<li><a href="/data">列表查询</a></li>
+							<li><a href="/statistics">分析统计</a></li>
+							<li><a href="/guide">说明</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="hero-unit">
+				<h1>DataStat</h1>
+				<br>
+				<p>为了方便数据统计，这里将数据的预处理工作进行了可视化处理，将原始数据加载入计算机进行统计分析，最终的结果以图表的形式展现给用户。这是复杂数据统计分析的预处理阶段，是后续复杂算法处理其它统计问题的一个先期准备。</p>
+				<p><a class="btn btn-primary btn-large" href="/load">开始 &raquo;</a></p>
+			</div>
+			<div class="row">
+				<div class="span4">
+					<h2>数据加载</h2>
+					<p>分析原始数据，通过批处理的方式将所有的数据载入数据库。加载过程中，提供进度查看功能，加载完毕后，提供数据库详细信息查看功能。</p>
+					<p><a class="btn" href="/load">进入 »</a></p>
+				</div>
+				<div class="span4">
+					<h2>列表查询</h2>
+					<p>将入库后的原始数据以列表的形式展现给用户，提供根据任务编号查询记录的功能，方便研究人员对数据后续进行相关统计分析工作。</p>
+					<p><a class="btn" href="/data">进入 »</a></p>
+				</div>
+				<div class="span4">
+					<h2>分析统计</h2>
+					<p>对加载所得的数据集进行统计处理，将所有统计信息以表格和曲线图的形式绘制在网页中，并提供统计信息导出文本文件的功能。</p>
+					<p><a class="btn" href="/statistics">进入 »</a></p>
+				</div>
+			</div>
+			<hr>
+			<footer><p>© NLSDE 2013</p></footer>
+		</div>
+		<script src="/js/jquery-1.7.1.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
+	</body>
+</html>

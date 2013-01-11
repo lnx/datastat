@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>DataStat</title>
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+		<link rel="stylesheet" type="text/css" href="/css/docs.css" />
+		<link rel="stylesheet" type="text/css" href="/css/prettify.css" />
+		<link rel="stylesheet" type="text/css" href="/css/reset.css" />
+	</head>
+	<body data-spy="scroll" data-target=".bs-docs-sidebar">
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="brand" href="/">DataStat</a>
+					<div class="nav-collapse subnav-collapse">
+						<ul class="nav">
+							<li><a href="/">主页</a></li>
+							<li><a href="/load">数据加载</a></li>
+							<li><a href="/data">列表查询</a></li>
+							<li class="active"><a href="/statistics">分析统计</a></li>
+							<li><a href="/guide">说明</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+		<#if (tableNames?size>0)>
+			<ul id="nav_label" class="nav nav-tabs">
+			<#list tableNames as tableName>
+				<#if tableName_index == 0>
+				<li class="active"><a href="#" onclick="refresh('${tableName}');">${tableName}</a></li>
+				<#else>
+				<li><a href="#" onclick="refresh('${tableName}');">${tableName}</a></li>
+				</#if>
+			</#list>
+			</ul>
+		</#if>
+			<div class="page-header" style="margin-top: 30px;height: 20px;"><h4>&nbsp;Jobs Number</h4></div>
+			<div class="row">
+				<div id="jobs_number_day_of_week" class="span6" style="width:550px;height:350px;margin-left:-10px;"></div>
+				<div id="jobs_number_hour_of_day" class="span6" style="width:550px;height:350px;margin-left:30px;"></div>
+			</div>
+			<div class="page-header" style="margin-top: 30px;height: 20px;"><h4>&nbsp;Mean Processors Number</h4></div>
+			<div class="row">
+				<div id="mean_n_procs_day_of_week" class="span6" style="width:550px;height:350px;margin-left:-10px;"></div>
+				<div id="mean_n_procs_hour_of_day" class="span6" style="width:550px;height:350px;margin-left:30px;"></div>
+			</div>
+			<div class="page-header" style="margin-top: 30px;height: 20px;"><h4>&nbsp;Mean CPU Time Used</h4></div>
+			<div class="row">
+				<div id="mean_avg_cpu_time_used_day_of_week" class="span6" style="width:550px;height:350px;margin-left:-10px;"></div>
+				<div id="mean_avg_cpu_time_used_hour_of_day" class="span6" style="width:550px;height:350px;margin-left:30px;"></div>
+			</div>
+			<div class="page-header" style="margin-top: 30px;height: 20px;"><h4>&nbsp;Mean Used Memory</h4></div>
+			<div class="row">
+				<div id="mean_used_mem_day_of_week" class="span6" style="width:550px;height:350px;margin-left:-10px;"></div>
+				<div id="mean_used_mem_hour_of_day" class="span6" style="width:550px;height:350px;margin-left:30px;"></div>
+			</div>
+			
+			<div class="page-header" style="margin-top: 30px;height: 20px;"><h4>&nbsp;Mean Request Time</h4></div>
+			<div class="row">
+				<div id="mean_req_time_day_of_week" class="span6" style="width:550px;height:350px;margin-left:-10px;"></div>
+				<div id="mean_req_time_hour_of_day" class="span6" style="width:550px;height:350px;margin-left:30px;"></div>
+			</div>
+			
+			<div class="page-header" style="margin-top: 30px;height: 20px;"><h4>&nbsp;Mean Request Memory</h4></div>
+			<div class="row">
+				<div id="mean_req_memory_day_of_week" class="span6" style="width:550px;height:350px;margin-left:-10px;"></div>
+				<div id="mean_req_memory_hour_of_day" class="span6" style="width:550px;height:350px;margin-left:30px;"></div>
+			</div>
+			<div class="page-header" style="margin-top: 30px;height: 20px;"><h4>&nbsp;Jobs Number Per Processors</h4></div>
+			<div class="row">
+				<div id="jobs_number_per_processors" class="span11" style="width:1130px;height:350px;margin-left:-10px;"></div>
+			</div>
+			<div class="page-header" style="margin-top: 30px;height: 20px;"><h4>&nbsp;Jobs Number Per: Average CPU Time Used & Used Memory</h4></div>
+			<div class="row">
+				<div id="jobs_number_per_avg_cpu_time_used" class="span6" style="width:550px;height:350px;margin-left:-10px;"></div>
+				<div id="jobs_number_per_used_mem" class="span6" style="width:550px;height:350px;margin-left:30px;"></div>
+			</div>
+			<div class="page-header" style="margin-top: 30px;height: 20px;"><h4>&nbsp;Jobs Number Per: Request Time & Request Memory</h4></div>
+			<div class="row">
+				<div id="jobs_number_per_req_time" class="span6" style="width:550px;height:350px;margin-left:-10px;"></div>
+				<div id="jobs_number_per_req_memory" class="span6" style="width:550px;height:350px;margin-left:30px;"></div>
+			</div>
+			<div class="page-header" style="margin-top: 30px;height: 20px;"><h4>&nbsp;Mean Accuracy Of User</h4></div>
+			<div class="row">
+				<div id="mean_accuracy_of_user" class="span11" style="width:1130px;height:350px;margin-left:-10px;"></div>
+			</div>
+			<hr>
+			<footer><p>© NLSDE 2013</p></footer>
+		</div>
+		<script src="/js/jquery-1.7.1.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
+		<script src="/js/flotr2.min.js"></script>
+		<script type = "text/javascript">
+		<!--
+			$(function() {
+				$('#nav_label li').each(
+					function() {
+						if ($(this).attr('class') == 'active') {
+							refresh($(this).text());
+						}
+					}
+				);
+			})
+			
+			function refresh(tableName) {
+				updateNavLabel(tableName);
+				drawBarChart(tableName, 'jobs_number_day_of_week', 0.5, 'jobs_number_day_of_week');
+				drawBarChart(tableName, 'jobs_number_hour_of_day', 0.5, 'jobs_number_hour_of_day');
+				drawBarChart(tableName, 'mean_n_procs_day_of_week', 0.5, 'mean_n_procs_day_of_week');
+				drawBarChart(tableName, 'mean_n_procs_hour_of_day', 0.5, 'mean_n_procs_hour_of_day');
+				drawBarChart(tableName, 'mean_avg_cpu_time_used_day_of_week', 0.5, 'mean_avg_cpu_time_used_day_of_week');
+				drawBarChart(tableName, 'mean_avg_cpu_time_used_hour_of_day', 0.5, 'mean_avg_cpu_time_used_hour_of_day');
+				drawBarChart(tableName, 'mean_used_mem_day_of_week', 0.5, 'mean_used_mem_day_of_week');
+				drawBarChart(tableName, 'mean_used_mem_hour_of_day', 0.5, 'mean_used_mem_hour_of_day');
+				drawBarChart(tableName, 'mean_req_time_day_of_week', 0.5, 'mean_req_time_day_of_week');
+				drawBarChart(tableName, 'mean_req_time_hour_of_day', 0.5, 'mean_req_time_hour_of_day');
+				drawBarChart(tableName, 'mean_req_memory_day_of_week', 0.5, 'mean_req_memory_day_of_week');
+				drawBarChart(tableName, 'mean_req_memory_hour_of_day', 0.5, 'mean_req_memory_hour_of_day');
+				drawBarChart(tableName, 'jobs_number_per_processors', 0.5, 'jobs_number_per_processors');
+				drawBarChart(tableName, 'jobs_number_per_avg_cpu_time_used', 2.5, 'jobs_number_per_avg_cpu_time_used(s)');
+				drawBarChart(tableName, 'jobs_number_per_used_mem', 50, 'jobs_number_per_used_mem(kb)');
+				drawBarChart(tableName, 'jobs_number_per_req_time', 2.5, 'jobs_number_per_req_time(s)');
+				drawBarChart(tableName, 'jobs_number_per_req_memory', 50, 'jobs_number_per_req_memory(kb)');
+				drawBarChart(tableName, 'mean_accuracy_of_user', 0.5, 'mean_accuracy_of_user');
+			}
+			
+			function updateNavLabel(tableName) {
+				$('#nav_label li').each(
+					function() {
+						if ($(this).attr('class') == 'active') {
+							$(this).removeClass('active');
+						}
+					}
+				);
+				$('#nav_label li').each(
+					function() {
+						if ($(this).text() == tableName) {
+							$(this).addClass('active');
+						}
+					}
+				);
+			}
+
+			function drawBarChart(tableName, statName, barWidth, xtitle) {
+				$.ajax({
+					url: '/statistics/' + tableName + '/' + statName,
+					data: 'json',
+					success: drawGraph
+				});
+				function drawGraph(json) {
+					json = jQuery.parseJSON(json);
+					if (json.length > 0) {
+						var array = new Array(), point, i, j;
+						array[0]=[];
+						for (i = 0; i < json.length; i++) {
+							if (statName == 'jobs_number_per_avg_cpu_time_used' || statName == 'jobs_number_per_used_mem' || statName == 'jobs_number_per_req_time' || statName == 'jobs_number_per_req_memory') {
+								array[0].push([json[i].x / 1000, json[i].y]);
+							} else {
+								array[0].push([json[i].x, json[i].y]);
+							}
+						}
+						if (json.length == 1 && json[0].x == 0 && json[0].y == 0) {
+							barWidth = 0.5;
+						}
+						Flotr.draw(document.getElementById(statName), array, { bars:{ show:true, horizontal:false, shadowSize:0, barWidth:barWidth }, mouse:{ track:true, relative:true }, xaxis:{ title:xtitle }, yaxis:{ min:0, autoscaleMargin:1 } });
+					} else {
+						$('#'+statName).html('<p style="margin-left:50px">暂无数据</p>');
+					}
+				}
+			}
+		-->
+		</script>
+	</body>
+</html>

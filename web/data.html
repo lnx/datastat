@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>DataStat</title>
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+		<link rel="stylesheet" type="text/css" href="/css/docs.css" />
+		<link rel="stylesheet" type="text/css" href="/css/prettify.css" />
+		<link rel="stylesheet" type="text/css" href="/css/reset.css" />
+	</head>
+	<body data-spy="scroll" data-target=".bs-docs-sidebar">
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="brand" href="/">DataStat</a>
+					<div class="nav-collapse subnav-collapse">
+						<ul class="nav">
+							<li><a href="/">主页</a></li>
+							<li><a href="/load">数据加载</a></li>
+							<li class="active dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="/data">列表查询<b class="caret"></b></a>
+								<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+								<#if tableNames?size==0>
+									<li><a tabindex="-1" href="#">暂无数据</a></li>
+								<#else>
+									<#list tableNames as tableName>
+									<li><a tabindex="-1" href="/data/${tableName}">${tableName}</a></li>
+									</#list>
+									<li class="divider"></li>
+									<li><a tabindex="-1" href="#tableHeads" data-toggle="modal">表头说明</a></li>
+								</#if>
+								</ul>
+							</li>
+							<li><a href="/statistics">分析统计</a></li>
+							<li><a href="/guide">说明</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<#if tableNames?size==0 >
+				<div class="alert alert-info">暂无数据！</div>
+			<#else>
+				<div class="alert alert-info">数据源&nbsp;${tableName}&nbsp;共有&nbsp;${tableSize}&nbsp;条记录</div>
+				<div id="data">
+					<table class="table table-bordered table-striped table-hover">
+						<thead>
+							<tr>
+							<#list tableHeads as head>
+								<th>${head}</th>
+							</#list>
+							</tr>
+						</thead>
+						<tbody>
+						<#list tableValues as table>
+							<tr>
+							<#list table as value>
+								<td>${value}</td>
+							</#list>
+							</tr>
+						</#list>
+						</tbody>
+					</table>
+				</div>
+				<div class="pagination pagination-centered">
+					<ul>
+					<#function max x y>
+						<#if (x>=y)>
+							<#return x>
+						<#else>
+							<#return y>
+						</#if>
+					</#function>
+					<#function min x y>
+						<#if (x<=y)>
+							<#return x>
+						<#else>
+							<#return y>
+						</#if>
+					</#function>
+					<#assign prePage=max(1,page-1)>
+					<#if (page>1)>
+						<li><a href="/data/${tableName}?page=${prePage?c}">&laquo;</a></li>
+					<#else>
+						<li class="disabled"><a>&laquo;</a></li>
+					</#if>
+					<#if (page<=8)>
+						<#list 1..min(15,pageTotal) as i>
+							<#if (page==i)>
+						<li class="disabled"><a>${i?c}</a></li>
+							<#else>
+						<li><a href="/data/${tableName}?page=${i?c}">${i?c}</a></li>
+							</#if>
+						</#list>
+					<#else>
+						<#list page-7..page-1 as i>
+						<li><a href="/data/${tableName}?page=${i?c}">${i?c}</a></li>
+						</#list>
+						<li class="disabled"><a>${page?c}</a></li>
+						<#if (page+1<=min(page+7, pageTotal))>
+							<#list page+1..min(page+7, pageTotal) as i>
+						<li><a href="/data/${tableName}?page=${i?c}">${i?c}</a></li>
+							</#list>
+						</#if>
+					</#if>
+					<#assign nextPage=min(page+1,pageTotal)>
+					<#if (page<pageTotal)>
+						<li><a href="/data/${tableName}?page=${nextPage?c}">&raquo;</a></li>
+					<#else>
+						<li class="disabled"><a>&raquo;</a></li>
+					</#if>
+					</ul>
+				</div>
+			</#if>
+			<hr>
+			<footer><p>© NLSDE 2013</p></footer>
+		</div>
+		<div id="tableHeads" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 id="myModalLabel">表头说明</h3>
+			</div>
+			<div class="modal-body" style="max-height:600px;">
+				<table class="table table-bordered table-striped table-hover">
+					<thead>
+						<tr>
+							<th>缩写</th>
+							<th>全名</th>
+							<th>缩写</th>
+							<th>全名</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>JID</td>
+							<td>JobID</td>
+							<td>WT</td>
+							<td>WaitTime</td>
+						</tr>
+						<tr>
+							<td>NP</td>
+							<td>NProcs</td>
+							<td>ACTU</td>
+							<td>AvgCPUTimeUsed</td>
+						</tr>
+						<tr>
+							<td>UM</td>
+							<td>UsedMem</td>
+							<td>RNP</td>
+							<td>ReqNProcs</td>
+						</tr>
+						<tr>
+							<td>RT</td>
+							<td>ReqTime</td>
+							<td>RM</td>
+							<td>ReqMemory</td>
+						</tr>
+						<tr>
+							<td>S</td>
+							<td>Status</td>
+							<td>UID</td>
+							<td>UserID</td>
+						</tr>
+						<tr>
+							<td>GID</td>
+							<td>GroupID</td>
+							<td>EID</td>
+							<td>ExecutableID</td>
+						</tr>
+						<tr>
+							<td>QID</td>
+							<td>QueueID</td>
+							<td>PN</td>
+							<td>PartitionNo</td>
+						</tr>
+						<tr>
+							<td>OSID</td>
+							<td>OrigSiteID</td>
+							<td>LRSID</td>
+							<td>LastRunSiteID</td>
+						</tr>
+						<tr>
+							<td>JS</td>
+							<td>JobStr</td>
+							<td>JSP</td>
+							<td>JobStrParam</td>
+						</tr>
+						<tr>
+							<td>UN</td>
+							<td>UsedNetwork</td>
+							<td>UD</td>
+							<td>UsedDisk</td>
+						</tr>
+						<tr>
+							<td>UR</td>
+							<td>UsedRes</td>
+							<td>-</td>
+							<td>-</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<script src="/js/jquery-1.7.1.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
+	</body>
+</html>

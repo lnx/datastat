@@ -1,0 +1,18 @@
+<table class="table table-bordered table-striped table-hover">
+	<thead>
+		<tr>
+		<#list tableHeads as head>
+			<th>${head}</th>
+		</#list>
+		</tr>
+	</thead>
+	<tbody>
+	<#list tableValues as table>
+		<tr>
+		<#list table as value>
+			<td>${value}</td>
+		</#list>
+		</tr>
+	</#list>
+	</tbody>
+</table>
